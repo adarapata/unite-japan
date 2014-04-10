@@ -1,0 +1,54 @@
+mecanim新機能紹介
+凄くクレイジー
+StateMachineにEntryとExitが追加されている
+以前、サブステート行くときはダイレクトに指定してたけど
+今回から、Entryを挟むことで、そこから条件に応じて分岐でkる
+自身にトランジションできる
+
+stateに大してスクリプトアタッチできる
+StateMachineBehavior
+State用のスクリプト
+OnStateExit
+OnStateEnter
+OnStateUpdate
+
+StateMachineBehavior内でインスタンス生成可能
+OnStateEnterで生成、OnExitで削除すればいい感じ
+
+
+アニメーション２D
+目からビーム出た
+Generate Root motion
+Apply root motion
+これで相対値で動く！
+
+5.0は、全てのmecanimの要素をスクリプトで管理できるようになった
+
+NavigationBuilder にアニメーションを突っ込むことで自動生成
+SimpleDirection2D:Inputに応じた動きが
+
+animatiorにLookAtメソッド追加されてる
+SetLookAtWeight(eye, head, body, foot);
+身体のパーツそれぞれにウェイトを設定できる
+ブレンドシェイプ
+blend tree direct
+パーツ一つ一つのアニメーションをブレンドできる
+
+1. statemachineの遷移
+2. behaviorの実装
+3. AssetCreationAPI
+4. ブレンドツリーやトランジション
+5. ダイレクトブレンドツリー
+
+Q. AnimatorControllerの他のコンポーネントへの連携が昔辛かった。今回の修正で、AnimationController内のデバッグなどの実装はできるか？AnimationControllerの解放
+A. BehaviorTreeとMecanimの同期が難しかったね。現時点では、BehaviorTreeとMecanim、どちらがmasterなのかを決める。
+EditorAPIは完全に解放される。
+
+Q. 2Dの話。キーを話したタイミングでアニメーションをその方向で止めたい。mecanimでできる？
+A. コードじゃないと止めれないねー。ただ、5.0のInputの試用だと、話したらデフォルトに戻るようになってる。その向きを記憶する方針も出てるけど、必ずやるとは約束できない。
+
+Q. 今回紹介したのって全部Free版でできる？
+A. どれがProでどれがFreeで使えるかはまだ決めてな
+
+Q. 今回紹介したのって全部Free版でできる？
+A. どれがProでどれがFreeで使えるかはまだ決めてない。い。

@@ -1,0 +1,70 @@
+Unity-test-tools
+何故テストの自動化を？
+不具合を見つけるコストを極力減らしたい
+テスト可能なコードは質の良いコード
+テスト＝品質の契約
+
+コードに関わる変更というのは後半になればなるほどコストかかる
+ゲームのテストと普通のソフトウェアのテストの違い
+->そんな変わらないと思ってる
+
+ソフトウェアとゲームの違い
+「機能ではない部分の品質の担保が必要」
+ゲームアルゴリズム自体のテストは容易
+ゲームは他のソフトウェアと違って、変更が非常に多い
+
+四ヶ月前にUnityテストツールをリリースした
+ゴール
+ソフトウェアとゲームのギャップを埋める
+いつでもテストできる
+バグレポートのやり方を変える。テストコードでバグ報告ができるようにしたい
+
+自動化ピラミッド
+UI
+Integration
+Unit
+
+UnitTestRunner
+AssettionCompornent
+IntegrationTestRunner
+
+UnitTestRunnerの紹介
+Monobehaviorはテストが難しい
+ハンドルオブジェクトパターンを使う
+
+テストはメモリ上で実行される
+なので早い
+故にmonobehaviorを継承させるのよくない
+だが、instatntiateっするロジックもあるはず
+テストコード内でinstantiateするとシーンに出て来てしまうからそれは避けたい
+
+Unite Tests Runnerオプション
+Run tests on a new scene 新規シーンを開いてそこでテスト実行、そして閉じる。
+show detailbox ボックスにテストの結果詳細がでる
+実行するテストのフィルタリングも可能
+
+AssertionComponent
+
+Assertクラスを指定: Bool値を調べるなら BoolCompaer
+普通に実際のオブジェクトにアタッチさせなきゃいけないっぽい
+
+テスト終えたらコンポーネント外したいよね
+AssertionExploler使ったらシーンに存在するAssertionが出る
+無効化も可能
+
+Integration test Runner シーンベースのテスト
+Succeed on assertions 
+
+Platformrunner
+
+BATCH RUNN
+テスト自動化
+継続的に行われる場合。
+
+UnityTestTools アセットストアにあるよ
+
+Q. 自分でテストツール作ったとき、iOSだけ落ちるとかあったんだけど、Unityのテストツールは同じことなってない？
+A. 残念ながら、iOSテストしてないです・・。モバイルだとAndroidのみ確認しています。これから頑張る
+
+Q. キー入力を含む場合のテストとか、どうするの？
+A. インプットを含むシミュレーションテストはそもそも避けた方が良い。また、UI部分はそもそも対応しない予定です。

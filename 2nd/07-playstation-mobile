@@ -1,0 +1,114 @@
+Unity for PSM
+PSMバックグラウンド
+PSM is 何
+PSM: プラットフォーム且つビジネスモデル
+昔は99$だったけど今は無料
+GooglePlay AppStoreと同じ感じ
+
+PSM Runtime フレームワーク
+PSM SDK 開発用きっと
+Unity-for-PSM
+
+PSM-SDK:
+ IDE:PSM-Studio (Monodevelopをカスタマイズしたやつ)
+ Language: C#でかける
+ Runtime for Android
+base is MONO
+Development Assistantというデバッガが入ってる
+
+Unity for PSM
+PSM人口を増やすための施策
+PS VITA用：Androidではない(といかAndroid出力は別にある)
+PSMで使われているランタイムを使う訳ではない
+Unity for PSMはPSM SDKを使用していない。別途Unity用に最適化されたもの。
+通常のPSM SDKと全く異なるワークフローになっっている
+
+PSM SDK vs Unity-for-PSM
+Unity Editor + PSM Addon
+PSM Toolset for unity
+Monodevelop
+
+Sxe.Playstation.coreは使わない。
+
+Unity PS Vita (ビジネス的な意味で)
+- 法人登録が必要
+- パブリックな開発はできない
+- developper用のハードウェアの購入が必要
+
+ネイティブでPS Vita用を作ると、Sonyのチェックが入り、リリースしにくい
+Unity-for-vitaはそれがない
+
+シェーダのプリコンパイルが必要
+
+Unity-for-PSM vs Unity Android
+nativeにアクセスできない意外は大体一緒
+
+何故PSMをビルド候補に入れるのか？
+物理コントローラ最強。やはりコントローラ使えるゲームっていいよね
+その上タッチインプットはあるのでモバイルから移植は楽
+マネタイズの幅を広げられる
+開発中にテストとして
+PsmDeviceForUnity；ログとか吐かれてるのでデバッグに便利
+
+パフォーマンスはどうなの？
+基本的には同じ。
+ただ、マネージドコードの変換に時間はかかる
+ジャストインタイムでもコンピレーション
+
+レンダリングの話
+- CGを使っている androidは基本 GLSLだけどUnityだとCG
+- 先に全てのシェーダーをコンパイルする必要がある
+- 
+
+Inputのマッピング
+joystick x/y = 左スティック
+joystick 4/5 = 右スティック
+ボタン
+getKey
+たっち
+GetTouch
+ジャイロスコープおk
+デバイス扱う系は大体使える
+define UNITY_PSM追加
+ネイティブが使えない＝ネイティブのライブラリは使えない
+C#のDLLとかじゃないとだめ
+Photon使える！
+
+パブリッシング
+psmpファイルが作られる
+
+アプリ内課金を次回実装予定
+グッズ系はPlaystationStoreから
+課金要素は、APIをUnity内に入れる予定
+
+
+でも、お高いんでしょ？
+無料！！！！！！！！！！！
+
+今後の予定
+public preview
+2014/8には出したい
+4.3ベースで作られう
+
+Q. PBCRPTはサポー戸しないの？
+A. しない
+
+Q. unityのやつはPS VITAのハードウェアに直接アクセスしてるの？
+A. yes, ネイティブとは別方法でアクセスしてます
+
+Q. unity4.3 4.5サポートって行ったけど、５が出てもまだ使えないの？
+A. Unity for PSMは4.3 で対応してるので、5が出ても4.3の状態だから互換性気を付けて作って。でもそんなに変更点ないから行ける気がする
+
+Q. PS VITAデバイス系の情報はどこに公開されるのかな？
+A. 最終的にはUnityのドキュメントの中に組み込まれる予定。リリース時に出す
+
+Q. シェーダがコンパイル時にキャッシュされるらしいけど、次の起動時に残っている？
+A. yes.つまり二回目は早い
+
+Q. PS VITAテレビってサポートしてる？
+A. してない。これからできるようにする
+
+Q. フォーラムは日本語でも大丈夫？
+A. ダイジョブダイジョブ
+
+@_eriq_

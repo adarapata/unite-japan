@@ -1,0 +1,74 @@
+Unity4.6の新GUI
+自己紹介：BioShock1,2作ってた
+New GUI System!
+
+既存のGUIの問題
+- コードが汚い
+- そもそもコードを書くことが辛い
+- 直感的でない
+
+Canvas:用意したグラフィック
+- 背面にレンダリング
+- ヒエラルキーの順番に応じて描画する
+
+ワールドに配置するかスクリーンに配置するかを選べるようになる
+ワールド:ワールド座標
+スクリーン:既存のやつ
+
+Canvasというコンポーネントが追加
+
+スクリーンの場合、スクリーンのサイズに応じて位置が変動する
+↑NGUIとの差別点っぽい
+
+Layout RectTransform
+- 絶対座標か相対座標かの設定
+- 親との関係の設定
+- 自動スケーリング設定
+
+width /height = screen resolution
+Canvasの場合、スケーリングとwidth.heightは別扱い。
+親子関係に基づく子の動き方は、RectTransformのAnchorPressetsで設定可能
+アンカリングの設定によってpadding設定等も可能
+
+でも：二つのボタンを並べる
+
+AutoLayout
+レスポンシブなレイアウトの作成が可能
+
+DrawingControll
+InteractingControll
+
+DrawingControll
+現在使われている描画処理
+Prepersing:アス比を変えない
+image type
+Simple:普通に比率変わる
+Sliced:周りの比率は変えず、選択範囲だけ拡大縮小する(NGUIのSlicedそのもの)
+Fill:
+
+テキストはマークアップが使える！
+Hello<color=red>Japan</color>
+これでJapanだけ赤くなる。分けなくて良い！
+
+Interactionについて
+クリックイベント等を、送ることができるようになったよ！(NGUIのアレ)
+例：ボタンを作る
+基本はNGUIのボタンイメージでおk
+ナビゲーションモードなるものがある。
+キーボードに対応させるとか
+
+アニメーションについて
+現状の2Dのアニメーションの形式でアニメーション作れる
+mecanim対応している
+buttonコンポーネントから、mecanimにパラメータ飛ばせる
+
+animatorどこで持ってた？
+
+Pointrスクリプトの書き方
+IDropHandlerインタフェースを実装すればいける
+
+Q. パーティクルと組み合わせたときに怒る前後関係おかしくなる問題はどうなってる？
+A. カメラ複数用意したらいける
+
+Q. スプライト回転とか重くない？
+A. 最適化してるよ。GUI全体でドローコールを１回くらいにしてうr

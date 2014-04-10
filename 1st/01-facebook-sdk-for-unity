@@ -1,0 +1,73 @@
+Facebook SDK for Unity
+マイケルさんのFacebook連携のお話
+
+C#でかける
+何故Facebookに特化してるの？
+ユーザ数が10億人いる
+3億7千万がFBゲームで遊んで知る
+そのなか1億5千万がUnityをんストールしている
+FBではFacebookCanvasで、Unityのゲームが動く。
+FBにはアプリのセクションがある。ユーザページではなく別のやつプライバシー制限もできる
+ゲーム内のイベントや状態等は、FBの通知として飛ばせる
+FBにはUnity向けの特別ページを作っている。
+デベロッパーがページを編集して公開できる
+ニュースフィードにも出てくる
+Unity内で決済システムの統合されてる。デスクトップのみ
+モバイルだと、広告が出せる
+FacebookSDKで、決済ができる！
+
+統合方法
+1. 設定
+2. ログイン
+3. POST
+
+developers.facebook.com
+新しいアプリの作成
+カテゴリ：ゲーム、サブカテゴリ、自由
+認証したら、アプリケーションIDを貰える(APIトークン的なやつかな)
+Unity Binary URLを指定（ファイルの場所）
+パラメータ(きほんそのままでよい)
+Cokkie:クッキー
+Logging
+
+プラットフォームごとの設定
+
+Delgate-Focused APIについて
+InitDelegate :初期か完了したら呼ばれるデリゲート
+HideUnityDelegate :表示されたら呼ばれる
+FacebookDelegate :一番使う奴
+FBResult Class :FBからの結果クラス Texture2D texture, string text, string error
+
+FB主要スクリプト
+FB,init
+FB.login
+FB.logout
+
+実行するとエディタ上でUserToken入れろと言われる
+FInd AccessTokenクリックすると、token取るページに行く
+
+FB.APIメソッド
+FB.API("/userId/methodName, HTTPMethodTYPE, callbackMethod);
+MiniJson内包してた"
+APIはRESTFullである
+
+iOSとのDeepLinking
+ゲームは重い。
+FB.GetDeepLink
+URL.SchemaSuffixにゲームのURLを書く
+
+Feed,リクエストアクティビティで使える フルスクリーンダイアログ
+今バージョン5.x開発中
+
+friendsmash-unityというOSSのゲームがあるのでソース見てね
+
+Q. 過去にAndroidアプリをFB連携したことあるんですけど、ログイン時にシングルサインオンに失敗するときがある。なんか解決策ある？
+A. 5.xでAndroid強化してるから解決してるよ！現状で解決するのであれば、stackoverflowになげてみて
+
+Q. iOSとAndroidで開発してるんですけど、Androidのビルドはトラブルが多い。manifestの内容辺りで不具合起きちゃうんだけど、注意点とかありますか？
+A. 自分はAndroid専門ではないので、stackoverflowに投げてみて
+
+Q. UnityがHTML5サポートするらしいけど、FBSDKは対応してるんですか？
+A. FB側も今回で初耳だったらしく、まだ対応はしてない。だけどこれから対応してくと思うよ。
+
+おわり
