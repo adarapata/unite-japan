@@ -1,0 +1,68 @@
+オーディオの真髄
+HITMANを作ったよ
+TCエレクトロニックの人
+
+Unity4->Unity5
+最大の変更点はAudioClipがデータと分離
+- 実際のオーディオは別になる
+- clipはメタデータを保持できるので柔軟性がある
+- トラック数とかもわかるし便利
+- preload設定を切ることで、必要な時に動的にローディングできる
+
+LoadAudioData()
+UnLoadAudioData()
+バックグラウンドで音声のロードも可能
+AudioClip.loadStateで状態を取れる
+
+プラットフォームごとに設定を変えれるよ
+サンプリング圧縮率とか
+名前変更 Native->PCM
+新規追加
+ADPCM
+ - 早いけど音が少し荒い。短い効果音とかに
+Vorbis
+ - MP3に代わりに使う感じで
+
+地味に、エディタから複数選べて更新できるよ
+3Dサウンド設定は削除した
+代わりにSpatialBlendを追加した
+2Dから3Dの間を0.0~1.0で表現するよ
+
+Stereo Pan設定
+ReverbZone設定を追加
+2DでもReverb使える！
+
+Pause機能変更したよ
+Pause(), UnPause()
+
+AudioProfiler
+めっちゃ見やすいなこれ
+
+AudioMixer
+わかんなかった単語だけ
+バイパス:そのチャンネルの音声を別のチャンネルに流し込む
+ダッキング：特定の音が再生されるときに他の音量をコントロールできる
+スナップショット：ボリュームバランスなどの設定を保持するやつ
+Sends/Receivees チャンネルの音をどこに流すか、受け取るか
+
+Presistent Editing
+実際にゲームを再生して発生する音を設定できる
+- ゲーム再生中に発生した設定をスナップショットして保持する
+
+AudioMixerもmecanim感覚でGetInt,SetIntできる
+
+8トラックのミキサーを、スナップショットを適時切り替えることでいい感じになる
+Intro1,2,3メインなどなど
+
+Mixerはネストして作成もできる
+
+高度な設定
+### horizontal rescheduling
+
+NativeAudioPlugins
+
+MusicScheduler
+
+地獄のプラグイン解説
+Don't Panic
+
