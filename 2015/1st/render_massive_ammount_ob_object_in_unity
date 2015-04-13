@@ -1,0 +1,81 @@
+この講演がやること
+Unityで大量(10000以上)のオブジェクトを描画&更新する
+
+石橋さん
+もとスクエニ&フロム
+並列プログラミング担当
+最近はグラフィック関連担当
+
+美しいインタラクションを実現するのが生き甲斐
+10000パーティクルとか出してCPU高まるのに興奮する
+
+デモ
+corei7で32700パーティクル生成
+全然重くなってない
+
+前提
+GameObjectを素直に10000もおいたら死ぬ
+Graphics.DrawMesh()使おう
+ただbatchingされない
+なのでdrawcall爆発
+
+擬似インスタンシング
+1メッシュに多数のモデルを持たせる
+65000
+
+RenderTexture
+
+ハードウェアインスタンシング
+一回のドローコールで複数モデル描画
+頂点シェーダにTRS行列を渡す
+頂点データはモデル１個分で済む
+WebGL2.0~いける
+
+Graphics.DrawProcedural()でできる
+Direct3D11のみ対応
+RenderQueueに載せれない
+surface shaderが使えない
+
+CommandBuffer.DrawProceduralが追加される
+
+擬似インスタンシングまとめ
+- Pros
+ - 現在のUnityで使える
+ - RenderQueueに載せられる
+ - surface shaderを使える
+
+### Updateの話
+万単位のオブジェクトを管理するManagerをStructで持つ
+Colliderは自前で実装しなくちゃいけない
+自前で接触したものにAddForce
+
+アプローチは複数
+ネイティブコード編
+C#は数値計算は超苦手
+ネイティブなら10灰は早い
+マルチスレッド
+SIMD化
+まあC++のが早いよね
+でもHPC向け言語も使える
+- Intel ISPC
+- OpenCL
+
+C++からC#のAPIをコールする
+
+HashGridによる高速化
+
+ComputeShaderはGPUで完結する描画では高速
+
+C#で頑張る場合
+いかに注意
+- classを参照すると重い
+- 大きなデータのコピーは避ける
+- ThreadGroup.QueueUserWorkItem()による並列化
+ - タスク並列
+
+IL2CPPは数値計算が早い
+
+まとめ
+Unityでの大量描画は擬似インスタンシングが良さそう
+C#を避けていこ
+
