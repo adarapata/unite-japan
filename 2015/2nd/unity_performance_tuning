@@ -1,0 +1,106 @@
+ゲームのレスポンスを改善する時に考える要素と言えば、
+CPU,GPUの取り回しを考える
+
+
+Unityではプロファイラを提供している
+
+今回はCPUプロファイラに焦点を当てて解説する。
+
+CPUプロファイラを利用すると実行中のUnityプログラムのリソースの推移を確認できる
+5からはCPUタイムラインが実装された。CPUの時間の推移とともに何が起こったかを視覚的に確認できるようになった
+
+Memoryプロファイラ
+アンロードされてないオブジェクトを探せる  
+
+LoadingData
+
+同期するか非同期か
+同期するなら綺麗にデータが取れる
+ただユーザを待たせる
+
+非同期
+LoadAsyncしたら非同期で取れる
+データのサイズが重要
+
+5.0 textureloding実装
+
+シーンローディング
+課題はメモリの消費
+新しいシーンがロードされきるまで古いシーンのデータはメモリに残る
+ポジションシーンを挟む
+= シーン遷移の際に空のシーンを挟むことで古シーンのメモリを解放
+
+シリアライズ
+Unityのシリアライズは早いよ
+
+昔は遅かった
+その場でリフレクションしていたため
+4.5で改善
+.NETを見て一旦キャッシングするので以降は高速に
+
+
+AssetBundles
+データのパッケージ化
+Use WWW.LoadFromCacheOrDownload
+
+UNLOADING
+ほとんどスレッド上で削除
+Resources.UnloadUnusedAssets/GC.Collectで手動でガベージできるよ
+
+GC PERFORMANCE
+
+GC OPTIMITIONS
+GCを有効活用するには
+メモリアーキテクチャ、レイアウトの把握
+classを極力structに変えるのも良い
+
+REDUCE GC WORK
+値型と参照型が混同しているstructは、値型と参照型で分けると効果的
+
+EXAMPLE
+
+RESULTS
+100000のオブジェクトを生成
+ランダムにメモリ上に配置したクラス 35ms
+メモリ上に並べたクラスオブジェクトたち 25ms
+struct 10ms
+struct かつstring使わない 0.18ms
+
+Pooling
+GCの負担を下げるために必要
+
+poolは先に温めておく
+いわゆる、オブジェクトをリストで管理してSetActiveして切り替える
+5.0でインスタンス化の時間が減ったよ
+
+## OnGUIは使うな！！！！！！！！
+
+General Performance
+Findは避ける
+名前を変えると死ぬしね
+あと遅い
+directLinkをおすすめします。
+
+過度なトランジションを避けてね
+例えば1000オブジェクトの更新をするなら、各BehaviourのUpdate呼ぶのはやめて管理クラス作って更新してあげよう
+そもそもMonoBehaviourは必須ではない。負荷高いし
+必要でないならGameObjectは作らない
+
+FUTURE
+メインスレッドを避けて作業したい
+ストリーミングの改善
+IL2CPP
+ガベージは静的に分析します
+Transformは負荷が高い。ここを改善します
+Profiling Toolsの強化
+
+CONCLUSION
+非同期ローディングはガンガン使おう asynchronously
+メモリは気にしよう
+GC気を付けよう
+キャッシングはやっておこう
+Profilerは活用していこう
+
+便利なやつ
+Scripting Behind the Scenes
+Mobile Performance
